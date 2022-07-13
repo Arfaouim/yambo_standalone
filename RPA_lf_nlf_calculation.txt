@@ -1,0 +1,17 @@
+References : https://www.yambo-code.eu/wiki/index.php/Next_steps:_RPA_calculations_(standalone)
+
+
+~/yambo_install/yambo/bin/yambo
+
+ $ grep -A20 "Energies &" r_setup
+
+~/yambo_install/yambo/bin/yambo -F yambo.in_RPA -V RL -o c -k hartree -C RPA_res
+~/yambo_install/yambo/bin/yambo -F yambo.in_RPA -J RPA -C RPA_res
+
+
+
+
+head -n 40 RPA_res/o-RPA.eps_q1_inv_rpa_dyson
+
+$ gnuplot 
+> plot "o-RPA.eps_q1_inv_rpa_dyson" u 1:2 w l t "RPA-LFA","o-RPA.eps_q1_inv_rpa_dyson" u 1:4 w l t "noLFE", "o-RPA.eel_q1_inv_rpa_dyson" u 1:4 w l ls 7 dt 2 t "EELS"
