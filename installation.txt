@@ -1,5 +1,3 @@
- mpirun -np 4 ~/qe-7.0/bin/pw.x -inp pwscfptse.in |tee scf.out
-
 
 .configure -help
 
