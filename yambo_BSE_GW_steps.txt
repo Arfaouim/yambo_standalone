@@ -32,7 +32,7 @@ long-wavelength limit q = 0.
 
 $ yambo -F yambo.in_IP -J Full
 
-output : o-Full.eps_q1_ip,  o-Full.eel_q1_ip and r-Full_bz_optics_dipoles_chi (report file)
+output : o-Full.eps_q1_ip,  o-Full.eel_q1_ip and r-Full_optics_dipoles_chi (report file)
 
 Note : in case to show the effect of switching off the non-local commutator term [Vnl,r]
 $ mv SAVE/ns.kb_pp_pwscf SAVE/ns.kb_pp_pwscf_OFF
