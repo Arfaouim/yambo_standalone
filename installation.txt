@@ -1,0 +1,49 @@
+ mpirun -np 4 ~/qe-7.0/bin/pw.x -inp pwscfptse.in |tee scf.out
+
+
+.configure -help
+
+make clean_all
+
+make -j4 yambo
+
+make -j4 interfaces 
+
+make -j4 ypp
+
+--enable-mpi, --with-mpi-prefix, --with-linalg-flavor, --with-linalg-libs
+
+./configure --enable-mpi="yes" --with-mpi-prefix="/usr" --with-netcdf-include="/usr/include/" --with-linalg-flavor="atlas" --with-linalg-libs="-L/usr/lib -llapack -lf77blas -lcblas -latlas" --with-netcdf-lib="/usr/lib/"
+
+this is work
+./configure --enable-int-linalg --disable-mpi --enable-open-mp --enable-msgs-comps --enable-time-profile --enable-memory-profile \
+ --with-blas-libs="-L${MKLROOT}/lib/intel64 -Wl,--no-as-needed -lmkl_gf_lp64 -lmkl_gnu_thread -lmkl_core -lgomp -lpthread -lm -ldl" \
+ --with-lapack-libs="-L${MKLROOT}/lib/intel64 -Wl,--no-as-needed -lmkl_gf_lp64 -lmkl_gnu_thread -lmkl_core -lgomp -lpthread -lm -ldl" 
+
+
+mkl problem 
+https://github.com/eddelbuettel/mkl4deb/blob/master/script.sh
+
+https://github.com/eddelbuettel/mkl4deb/issues/4
+
+
+yambo install linux 
+http://www.yambo-code.org/wiki/index.php?title=Install_Yambo_on_Ubuntu/LinuxMint
+
+if yambo no trouvable 
+export PATH=/usr/local/yambo-5.0.1/bin:$PATH 
+
+yambo tuto files
+
+http://www.yambo-code.org/wiki/index.php?title=Get_Tutorial_files_CECAM2021
+
+
+
+
+gedit ~/.bashrc
+
+refrech terminal after modfing 
+
+source ~/.bashrc
+###############################
+export PATH ="$HOME/yambo-5.0.1/bin:PATH" 

@@ -1,0 +1,95 @@
+***************
+DFT_QE
+***************
+SCF_calculation with SOC with pp NC+FR (FULL_relativistic correction)
+
+~/yambo/bin/p2y
+
+***************
+YAMBO
+***************
+0) step 0
+~/yambo/bin/yambo  (initialization)
+
+output : r_setup
+
+gerp information
+
+$ grep -A20 "Energies &" r_setup
+
+
+
+A ) Independent particule calculation
+
+ref : https://www.yambo-code.eu/wiki/index.php?title=Optics_at_the_independent_particle_level
+
+$yambo -F yambo.in_IP -o c
+
+long-wavelength limit q = 0. 
+% QpntsRXd
+ 1 |  1 |                   # [Xd] Transferred momenta
+%
+
+$ yambo -F yambo.in_IP -J Full
+
+output : o-Full.eps_q1_ip,  o-Full.eel_q1_ip and r-Full_bz_optics_dipoles_chi (report file)
+
+Note : in case to show the effect of switching off the non-local commutator term [Vnl,r]
+$ mv SAVE/ns.kb_pp_pwscf SAVE/ns.kb_pp_pwscf_OFF
+
+B ) GW
+
+1) step 1
+
+~/yambo/bin/yambo -x -p p -g n -F gw_ppa.in
+
+~/yambo/bin/yambo -F gw_ppa.in -J Full_BZ
+
+2) step 2 : interpolation
+
+~/yambo/bin/ypp -s b
+
+0.33300 |-.66667 |0.00000 | #k
+0.00000 |0.00000 |0.00000 | # Gamma
+0.50000 |-.50000 |0.00000 | # M
+0.33300 |-.66667 |0.00000 | # K
+
+ou 
+
+%
+0.00000 |0.00000 |0.00000 |
+0.50000 |-.50000 |0.00000 |
+0.33300 |-.66667 |0.00000 |
+0.00000 |0.00000 |0.00000 |
+%
+
+GfnQPdb= "E < ./Full_BZ/ndb.QP"
+
+~/yambo/bin/ypp -F ypp.in
+
+C) BSE
+
+1) step 1 : static_screening
+~/yambo/bin/yambo -X s -F 01_BSE_screening.in (change X to b for yambo < 5)
+~/yambo/bin/yambo -F 01_BSE_screening.in -J 2D_BSE
+
+2) step 2 : Kernel BSE
+~/yambo/bin/yambo -o b -k sex -F 02_BSE_kernel.in -J 2D_BSE
+
+KfnQPdb= "E < Full_BZ/ndb.QP"
+BSEprop= "abs kerr"
+
+~/yambo/bin/yambo -F 02_BSE_kernel.in -J 2D_BSE
+
+3) step 3: Diagnolization BSE Hamiltonien
+cp  02_BSE_kernel.in 03_BSE_diago_solver.in
+~/yambo/bin/yambo -F 03_BSE_diago_solver.in -y d -V qp -J 2D_BSE
+
+KfnQPdb= "E < Full_BZ/ndb.QP"
+BSEprop= "abs kerr"
+
+~/yambo/bin/yambo -F 03_BSE_diago_solver.in -J 2D_BSE
+
+*************
+END! 
+*************
