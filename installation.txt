@@ -1,5 +1,14 @@
+git clone https://github.com/yambo-code/yambo.git
 
-.configure -help
+./configure
+
+make all
+
+
+***********************
+or
+
+./configure -help
 
 make clean_all
 
