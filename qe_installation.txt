@@ -1,0 +1,12 @@
+
+
+References : 
+
+
+https://pranabdas.github.io/espresso/setup/install/
+
+https://github.com/QEF/q-e
+
+https://www.researchgate.net/publication/341626466_Quantum_espresso_installation_and_testing
+
+http://www.fisica.uniud.it/~giannozz/QE-Tutorial/installation.html
